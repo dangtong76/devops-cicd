@@ -1,0 +1,33 @@
+name: "aws-cicd-practice"
+services:
+  code-server:
+    image: dangtong76/cloud-cicd-ide
+    container_name: "ide"
+    networks:
+      - kind_network
+    environment:
+      AUTH: none
+      #FILE__PASSWORD: /run/secrets/code-server-password
+    env_file:
+      - .env
+    working_dir: /code
+    ports:
+      - "8444:8443"
+      - "5500:5500"
+    # secrets:
+    #   - code-server-password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - devops-cicd-apps:/code/devops-cicd-apps
+      - devops-cicd-vscode:/config
+networks:
+  kind_network:
+    name: kind
+    external: true
+volumes:
+  devops-cicd-apps:
+    external: true
+    name: devops-cicd-apps
+  devops-cicd-vscode:
+    external: true
+    name: devops-cicd-vscode
