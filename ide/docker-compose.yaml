@@ -3,8 +3,8 @@ services:
   code-server:
     image: dangtong76/cloud-cicd-ide
     container_name: "ide"
-    networks:
-      - kind_network
+    # networks:
+    #   - kind_network
     environment:
       AUTH: none
       #FILE__PASSWORD: /run/secrets/code-server-password
@@ -20,10 +20,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - devops-cicd-apps:/code/devops-cicd-apps
       - devops-cicd-vscode:/config
-networks:
-  kind_network:
-    name: kind
-    external: true
+# networks:
+#   kind_network:
+#     name: kind
+#     external: true
 volumes:
   devops-cicd-apps:
     external: true
