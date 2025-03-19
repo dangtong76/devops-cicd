@@ -1,5 +1,5 @@
-# https://hub.docker.com/r/linuxserver/code-server
-FROM linuxserver/code-server:4.93.1
+# devops-ide 1.2
+FROM linuxserver/code-server:latest
 
 # ENV for Code-server (VSCode)
 ENV TZ="Asia/Seoul"
@@ -12,16 +12,24 @@ RUN mkdir /code && chown 1000:1000 /code
 # Update & Install the packages
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install -y ca-certificates curl gnupg software-properties-common wget unzip apt-transport-https telnet net-tools vim iputils-ping openjdk-11-jdk python3 python3-pip gh
+RUN apt-get install -y ca-certificates curl gnupg software-properties-common wget unzip apt-transport-https telnet net-tools vim iputils-ping openjdk-17-jdk python3 python3-pip gh golang nodejs npm
+
+# Dart-Sass 설치 
+RUN npm install -g sass
+
+# Hugo Install
+RUN curl -L https://github.com/gohugoio/hugo/releases/download/v0.145.0/hugo_extended_0.145.0_linux-amd64.tar.gz -o hugo.tar.gz \
+    && tar -xzf hugo.tar.gz -C /usr/local/bin \
+    && rm hugo.tar.gz
 
 # Install Jupyter
 RUN pip install --no-cache-dir --break-system-packages jupyter ipykernel
 
 # ENV for JDK
-ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Docker CLI
+# Install Docker CLI
 RUN apt-get update && install -m 0755 -d /etc/apt/keyrings  \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc  \
     && chmod a+r /etc/apt/keyrings/docker.asc
@@ -37,13 +45,11 @@ COPY --from=amazon/aws-cli /usr/local/aws-cli/v2 /usr/local/aws-cli/v2
 RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
 RUN ln -s /usr/local/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
 
-# Terraform
+# Install Terraform
 RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null  \
     && gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint  \
     && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
 
-# RUN apt update && apt-get install -y terraform=1.9.7
-# RUN apt update && apt-get install -y terraform
 RUN apt update && apt-get install -y terraform && apt-get clean
 
 # Kubectl
