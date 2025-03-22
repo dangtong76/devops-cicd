@@ -12,9 +12,10 @@ services:
       - .env
     working_dir: /code
     ports:
-      - "1313:1313"
-      - "1314:1314"
-      - "8444:8443"
+      - "8080:8080" # istory-web
+      - "1313:1313" # hugo port 1
+      - "1314:1314" # hugo port 2
+      - "8444:8443" # vscode service port
       - "5500:5500"
     # secrets:
     #   - code-server-password
