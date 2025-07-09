@@ -16,8 +16,6 @@ docker buildx build --platform linux/arm64 \
 -f Dockerfile.arm64 \
 -t <DOCKER-ID>/cicd-devops-ide:arm64 .
 
-# ARM64 이미지 푸시
-docker push <DOCKER-ID>/cicd-devops-ide:arm64
 
 # 매니페스트로 결합
 docker manifest create <DOCKER-ID>/cicd-devops-ide:latest \
