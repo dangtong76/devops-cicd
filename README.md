@@ -33,7 +33,7 @@ docker manifest push <Your-Docker-Hub-ID>/cicd-devops-ide:latest
 ```
 
 
-## 2. 도커 볼륨 만들기
+## 3. 도커 볼륨 만들기
 
 ```bash
 docker volume create devops-cicd-apps
@@ -41,7 +41,7 @@ docker volume create devops-cicd-vscode
 ```
 
 
-## 3. 도커 컨테이너 실행
+## 4. 도커 컨테이너 실행
 
 ```bash
 docker compose up -d
