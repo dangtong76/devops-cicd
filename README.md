@@ -17,7 +17,7 @@ docker manifest create <Your-Docker-Hub-ID>/cicd-devops-ide:latest \
 <Your-Docker-Hub-ID>/cicd-devops-ide:arm64
 ```
 
-2. 도커 이미지 및 Manifest 푸쉬
+## 2. 도커 이미지 및 Manifest 푸쉬
 ```
 # Docker Hub에 로그인
 docker login
