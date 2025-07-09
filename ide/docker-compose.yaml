@@ -1,7 +1,7 @@
 name: "aws-cicd-practice"
 services:
   code-server:
-    image: dangtong76/devops-ide-mac:1.3
+    image: dangtong76/devops-cicd-ide:arm64
     container_name: "ide"
     # networks:
     #   - kind_network 
@@ -13,11 +13,11 @@ services:
     working_dir: /code
     ports:
       - "8080:8080" # istory-web
-      - "1313:1313" # hugo port 1
-      - "1314:1314" # hugo port 2
+      - "1314:1314" # hugo port 1
+      - "1315:1315" # hugo port 2
       - "8444:8443" # vscode service port
       - "5500:5500"
-    # secrets:
+    # secrets:s
     #   - code-server-password
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
