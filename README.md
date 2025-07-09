@@ -3,23 +3,27 @@
 ## 1. 도커 빌드
 
 ```bash
-docker build -t dangtong76/cloud-cicd-ide .
+# AMD64 빌드
+docker buildx build --platform linux/amd64 -f Dockerfile.amd64 -t myimage:amd64 .
 
-docker push dangtong76/cloud-cicd-ide
+# ARM64 빌드
+docker buildx build --platform linux/arm64 -f Dockerfile.arm64 -t myimage:arm64 .
+
+# 매니페스트로 결합
+docker manifest create <Your-Docker-Hub-ID>/cicd-devops-ide:latest <Your-Docker-Hub-ID>/cicd-devops-ide:amd64 <Your-Docker-Hub-ID>/cicd-devops-ide:arm64
 ```
 
 
 ## 2. 도커 볼륨 만들기
 
 ```bash
-docker volume create --opt device=/Users/dangtongbyun/Library/CloudStorage/GoogleDrive-dbyun@redhat.com/내 드라이브/05.Lecture/cicd/devops-cicd/storage/devops-cicd-apps --opt o=bind --opt type=none devops-cicd-apps
-
-docker volume create --opt device=/Users/dangtongbyun/Library/CloudStorage/GoogleDrive-dbyun@redhat.com/내 드라이브/05.Lecture/cicd/devops-cicd/storage/devops-cicd-vscode --opt o=bind --opt type=none devops-cicd-vscode
+docker volume create devops-cicd-apps
+docker volume create devops-cicd-vscode
 ```
 
 
 ## 3. 도커 컨테이너 실행
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
