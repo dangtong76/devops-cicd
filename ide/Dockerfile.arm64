@@ -80,6 +80,11 @@ RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/s
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
 
+# Install Kind for ARM64
+RUN curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-arm64 && \
+    chmod +x ./kind && \
+    mv ./kind /usr/local/bin/kind
+
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" && \
     chmod +x kubectl && \
