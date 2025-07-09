@@ -12,7 +12,24 @@ docker buildx build --platform linux/arm64 \
 -f Dockerfile.arm64 -t <Your-Docker-Hub-ID>/cicd-devops-ide:arm64 .
 
 # 매니페스트로 결합
-docker manifest create <Your-Docker-Hub-ID>/cicd-devops-ide:latest <Your-Docker-Hub-ID>/cicd-devops-ide:amd64 <Your-Docker-Hub-ID>/cicd-devops-ide:arm64
+docker manifest create <Your-Docker-Hub-ID>/cicd-devops-ide:latest \
+<Your-Docker-Hub-ID>/cicd-devops-ide:amd64 \
+<Your-Docker-Hub-ID>/cicd-devops-ide:arm64
+```
+
+2. 도커 이미지 및 Manifest 푸쉬
+```
+# Docker Hub에 로그인
+docker login
+
+# AMD64 이미지 푸시
+docker push <Your-Docker-Hub-ID>/cicd-devops-ide:amd64
+
+# ARM64 이미지 푸시
+docker push <Your-Docker-Hub-ID>/cicd-devops-ide:arm64
+
+# 매니페스트 푸시 (멀티 아키텍처 지원을 위해)
+docker manifest push <Your-Docker-Hub-ID>/cicd-devops-ide:latest
 ```
 
 
