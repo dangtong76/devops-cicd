@@ -4,10 +4,12 @@
 
 ```bash
 # AMD64 빌드
-docker buildx build --platform linux/amd64 -f Dockerfile.amd64 -t <Your-Docker-Hub-ID>/cicd-devops-ide:amd64 .
+docker buildx build --platform linux/amd64 \
+-f Dockerfile.amd64 -t <Your-Docker-Hub-ID>/cicd-devops-ide:amd64 .
 
 # ARM64 빌드
-docker buildx build --platform linux/arm64 -f Dockerfile.arm64 -t <Your-Docker-Hub-ID>/cicd-devops-ide:arm64 .
+docker buildx build --platform linux/arm64 \
+-f Dockerfile.arm64 -t <Your-Docker-Hub-ID>/cicd-devops-ide:arm64 .
 
 # 매니페스트로 결합
 docker manifest create <Your-Docker-Hub-ID>/cicd-devops-ide:latest <Your-Docker-Hub-ID>/cicd-devops-ide:amd64 <Your-Docker-Hub-ID>/cicd-devops-ide:arm64
