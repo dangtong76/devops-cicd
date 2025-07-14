@@ -1,7 +1,7 @@
 name: "aws-cicd-practice"
 services:
   code-server:
-    image: dangtong76/devops-cicd-ide:latest
+    image: dangtong76/cicd-devops-ide
     container_name: "ide"
     # networks:
     #   - kind_network 
