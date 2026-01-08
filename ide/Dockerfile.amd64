@@ -119,3 +119,11 @@ RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases
 RUN curl -fsSL https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz | tar xz && \
     mv k9s /usr/local/bin/ && \
     chmod +x /usr/local/bin/k9s
+
+# Install Opencode
+RUN npm install -g opencode-ai
+
+# Install Telepresence
+RUN curl -fsSL https://app.getambassador.io/download/tel2/linux/amd64/latest/telepresence \
+    -o /usr/local/bin/telepresence \
+    && chmod +x /usr/local/bin/telepresence
